@@ -1,0 +1,12 @@
+
+objectvar stim_mcn1
+  MCN1a stim_mcn1 = new IClamp(0.5)
+  stim_mcn1.del=0
+  stim_mcn1.dur=tmax
+  stim_mcn1.amp=0.02
+
+objectvar stim_lg
+  LGn[0] stim_lg = new IClamp(0.5)
+  stim_lg.del=0
+  stim_lg.dur=tmax
+  stim_lg.amp=0.0

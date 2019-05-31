@@ -1,0 +1,173 @@
+proc initialize(){
+
+	finitialize(-55)
+
+	new_initials()
+	forall{
+
+		if(issection("INT1a")){
+		v=int1values[AV]	
+		hon_int1=int1values[HON]
+		hoff_int1=int1values[HOFF]
+		Kon_int1=int1values[KON]
+		Koff_int1=int1values[KOFF]
+		Naon_int1=int1values[NAHON]
+		Naoff_int1=int1values[NAHOFF]
+		}
+		if(issection("INT1s")){
+		v=int1values[SV]
+hon_int1s=int1values[HON]
+hoff_int1s=int1values[HOFF]
+
+		}
+		if(issection("INT1n[0]")){
+		v=int1values[NV]
+		}
+
+		if(issection("LGa")){
+		v=lgvalues[AV]
+		Kon_lg=lgvalues[KON]
+		Koff_lg=lgvalues[KOFF]
+		Naon_lg=lgvalues[NAHON]
+		Naoff_lg=lgvalues[NAHOFF]
+		} 
+		if(issection("LGs")){
+		v=lgvalues[SV]
+		}
+		if(issection("LGn[0]")){
+		v=lgvalues[NV]
+		}
+
+
+
+		if(issection("MCN1a")){
+		v=mcn1values[AV]
+		Kon_mcn1=mcn1values[KON]
+		Koff_mcn1=mcn1values[KOFF]
+		Naon_mcn1=mcn1values[NAHON]
+		Naoff_mcn1=mcn1values[NAHOFF]
+		}
+
+		if(issection("MCN1n[0]")) {
+			v=mcn1nvalues[0]
+		}
+		if(issection("MCN1n[1]")) {
+			v=mcn1nvalues[1]
+		}
+
+
+	}
+
+	if (cvode.active()) { cvode.re_init() }
+}
+
+/*---------------------------------------------------*/
+
+proc new_initials() {
+
+	ropen("z.z")
+
+printf("rNnow reading the file z.z\n")
+printf("ok0\n")
+	int1values[AV] = fscan()
+	int1values[HON] = fscan()
+	int1values[HOFF] = fscan()
+	int1values[KON] = fscan()
+	int1values[KOFF] = fscan()
+	int1values[NAHON] = fscan()
+	int1values[NAHOFF] = fscan()
+	int1values[SV] = fscan()
+	int1values[NV] = fscan()
+
+
+	lgvalues[AV] = fscan()
+	lgvalues[KON] = fscan()
+	lgvalues[KOFF] = fscan()
+	lgvalues[NAHON] = fscan()
+	lgvalues[NAHOFF] = fscan()
+	lgvalues[SV] = fscan()
+	lgvalues[NV] = fscan()
+
+	
+	mcn1values[AV] = fscan()
+	mcn1values[KON] = fscan()
+	mcn1values[KOFF] = fscan()
+	mcn1values[NAHON] = fscan()
+	mcn1values[NAHOFF] = fscan()
+
+
+	mcn1nvalues[0] = fscan()
+	mcn1nvalues[1] =  fscan()
+
+
+printf("ok1")
+lg_int1a.vpre=fscan()
+lg_int1a.synon=fscan()
+lg_int1a.synoff=fscan()
+
+lg_int1s.vpre=lg_int1a.vpre
+lg_int1s.synon=lg_int1a.synon
+lg_int1s.synoff=lg_int1a.synoff
+
+mcn1_lg.vpre=fscan()
+mcn1_lg.synon=fscan()
+mcn1_lg.synoff=fscan()
+
+
+mcn1_int1.vpre=fscan()
+mcn1_int1.synon=fscan()
+mcn1_int1.synoff=fscan()
+printf("ok2")
+lg_mcn1.vpre=fscan()
+lg_mcn1.synon=fscan()
+lg_mcn1.synoff=fscan()
+
+int1_lg.vpre=fscan()
+int1_lg.synon=fscan()
+int1_lg.synoff=fscan()
+
+	printf("ok3")
+//	ropen()
+
+
+}
+
+/*----------------------------------------------*/
+
+proc print_init(){
+
+wopen("z.z")
+
+printf("now writing the file z.z")
+
+access INT1a	
+fprint("%f %f %f %f %f %f %f\n",INT1a.v,hon_int1,hoff_int1,Nahon_int1,Nahoff_int1,Kon_int1,Koff_int1)
+access INT1s
+fprint("%f \n",INT1s.v)
+access INT1n[0]
+fprint("%f \n",INT1n[0].v)	
+
+access LGa	
+fprint("%f %f %f %f %f \n",LGa.v,Kon_lg,Koff_lg,Nahon_lg,Nahoff_lg)
+access LGs
+fprint("%f \n",LGs.v)
+access LGn[0]
+fprint("%f \n",LGn[0].v)	
+
+
+access MCN1a
+fprint("%f %f %f %f %f \n",MCN1a.v,Kon_mcn1,Koff_mcn1,Nahon_mcn1,Nahoff_mcn1)
+
+	for i=0,MCN1_SEG-1 {
+		access MCN1n[i]
+		fprint("%f\n",MCN1n[i].v)
+	}
+
+fprint("%f %f %f\n",lg_int1a.vpre,lg_int1a.synon,lg_int1a.synoff)
+fprint("%f  %f %f\n",mcn1_lg.vpre,mcn1_lg.synon,mcn1_lg.synoff)
+fprint("%f  %f %f\n",mcn1_int1.vpre,mcn1_int1.synon,mcn1_int1.synoff)
+fprint("%f  %f %f\n",lg_mcn1.vpre,lg_mcn1.synon,lg_mcn1.synoff)
+fprint("%f %f %f\n",int1_lg.vpre,int1_lg.synon,int1_lg.synoff)
+
+wopen()
+}

@@ -1,0 +1,68 @@
+
+/***********************************************************/
+create MCN1a,MCN1n[MCN1_SEG],LGa,LGn[PASSIVE_SEG],LGs
+create INT1a,INT1n[PASSIVE_SEG],INT1s
+
+/***********************************************************/
+forall { nseg=1 L=10 diam=10 C=1 Ra=200}
+
+/***********************************************************/
+MCN1a  {insert mcn1}
+
+for i=0,MCN1_SEG-1 {
+  MCN1n[i]  {insert pass nseg=1 diam=.25 L=100}
+access MCN1n[i]
+	gL_pass=0.0001
+	eL_pass=-40
+}
+
+for i=0,MCN1_SEG-2{
+  connect MCN1n[i](1),MCN1n[i+1](0)
+}
+connect MCN1a(1),MCN1n[0](0)
+
+/***********************************************************/
+LGa  {insert lg}
+LGs  {insert pass L=10 diam=10}
+
+for i=0,PASSIVE_SEG-1 {
+  LGn[i]  {insert pass nseg=1 diam=.25 L=100}
+access LGn[i]
+	gL_pass=0.0001
+	eL_pass=-40
+}
+
+access LGs
+	gL_pass=0.0001
+	eL_pass=-40
+
+connect LGa(1),LGn[0](0)
+connect LGs(0),LGn[PASSIVE_SEG-1](1)
+for i=0,PASSIVE_SEG-2{
+  connect LGn[i](1),LGn[i+1](0)
+}
+
+/***********************************************************/
+
+INT1a  {insert int1 gbarh_int1=0.0002 eh_int1s=10}
+
+INT1s  {insert int1s L=10 diam=10 gbarh_int1s=0.00000  eh_int1s=10}
+
+
+for i=0,PASSIVE_SEG-1 {
+  INT1n[i]  {insert pass nseg=1 diam=.25 L=100}
+access INT1n[i]
+	gL_pass=0.0001
+	eL_pass=-30
+}
+
+access INT1s
+
+gL_int1s=0.0001
+eL_int1s=-30
+
+connect INT1a(1),INT1n[0](0)
+connect INT1s(0),INT1n[PASSIVE_SEG-1](1)
+for i=0,PASSIVE_SEG-2{
+  connect INT1n[i](1),INT1n[i+1](0)
+}

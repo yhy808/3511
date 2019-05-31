@@ -1,0 +1,7 @@
+load_file("all.oc")
+cvode_active(1)
+atol_ = 1e-4 //semi-quantitatively similar to fixed step dt=.05 simulation
+cvode.atol(atol_)
+stdrun_quiet = 1
+run()
+

@@ -1,0 +1,50 @@
+objectvar lg_int1n, lg_int1s,lg_int1a,int1_lg,lg_mcn1,mcn1_lg,mcn1_int1,g[2],mcn1_lg_gj
+
+INT1n[PASSIVE_SEG-1] lg_int1n = new lg_int1syn(.5)
+setpointer lg_int1n.vpre, LGa.v(.5)
+{lg_int1n.gmax=.0013  lg_int1n.e=-80}
+
+INT1a lg_int1a = new lg_int1syn(.5)
+setpointer lg_int1a.vpre, LGa.v(.5)
+{lg_int1a.gmax=.0013  lg_int1a.e=-80}
+
+INT1s lg_int1s = new lg_int1syn(.5)
+setpointer lg_int1s.vpre, LGa.v(.5)
+{lg_int1s.gmax=.0013  lg_int1s.e=-80}
+
+LGn[PASSIVE_SEG-1] int1_lg = new int1_lgsyn(.5)
+setpointer int1_lg.vpre, INT1s.v(.5)
+{int1_lg.gmax=0.0013  int1_lg.e=-80 }
+
+MCN1n[MCN1_SEG-1] lg_mcn1 = new lg_mcn1syn(.5)
+setpointer lg_mcn1.vpre, LGa.v(.5)
+{lg_mcn1.gmax=0.1 lg_mcn1.e=-80}
+
+LGn[PASSIVE_SEG-1] mcn1_lg = new mcn1_lgsyn(.5)
+setpointer mcn1_lg.vpre, MCN1n[MCN1_SEG-1].v(.5)
+{mcn1_lg.gmax=0.0003 mcn1_lg.e=45}
+
+INT1n[PASSIVE_SEG-1] mcn1_int1 = new mcn1_int1syn(.5)
+setpointer mcn1_int1.vpre, MCN1n[MCN1_SEG-1].v(.5)
+{mcn1_int1.gmax=0.0000015 mcn1_int1.e=45}
+
+objectvar g[2]
+for i=0,1 g[i] = new gap()
+LGa g[0].loc(0.5)
+MCN1a g[1].loc(0.5)
+setpointer g[0].vgap, MCN1a.v(0.5)
+setpointer g[1].vgap, LGn.v(0.5)
+{g[0].gg=9e-5}
+{g[1].gg=0}
+
+
+/*  AB -> INT1 */
+
+fsyn(tmax/pyloric)
+
+for(i=0;i<tmax/pyloric;i=i+1) {
+	INT1n[PASSIVE_SEG-1] fsyn(i,0.5,pyloric*i,80,0.0018,-70)
+
+}
+
+
