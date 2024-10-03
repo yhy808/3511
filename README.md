@@ -6,6 +6,7 @@ to see the them develop but the simulation will run at about 2/3 the
 speed.
 
 Nadim F, Manor Y, Nusbaum MP, Marder E.
+
 Frequency regulation of a slow rhythm by a fast periodic input.
 J Neurosci 1998 Jul 1;18(13):5053-67
 
