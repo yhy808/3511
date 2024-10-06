@@ -8,7 +8,7 @@ speed.
 Nadim F, Manor Y, Nusbaum MP, Marder E.
 
 Frequency regulation of a slow rhythm by a fast periodic input.
-J Neurosci 1998 Jul 1;18(13):5053-67
+*J Neurosci* 1998 Jul 1;18(13):5053-67
 
    Many nervous systems contain rhythmically active subnetworks that
 interact despite oscillating at widely different frequencies.  The
@@ -38,3 +38,7 @@ Note: The NEURON version 5.1 variable step absolute tolerance has been set
 produce a simulation similar to that of the fixed step crank-nicholson
 method with dt=.05(ms). For NEURON version 4.3.1, the tolerance can
 be set to 0.01 .
+
+Changelog:
+----------
+2024-10: Converted readme to markdown
